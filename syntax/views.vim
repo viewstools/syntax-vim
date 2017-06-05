@@ -16,21 +16,23 @@ syntax match viewsPropMarginValue /[0-9]\+/ contained
 syntax match viewsPropPadding /padding.\+/ contained contains=viewsPropPaddingValue
 syntax match viewsPropPaddingValue /[0-9]\+/ contained
 
+syntax region viewsPropValue start=/\s/ end=/$/ contained contains=viewsPropValueCode,viewsPropProxied
 
-syntax region viewsPropValue start=/\s/ end=/$/ contained contains=viewsPropValueCode
+syntax match viewsPropProxied /[A-Z][a-zA-Z0-9]\+$/ contained
 
-syntax match viewsPropValueCode /.\+props.\+/ contained contains=viewsPropValueCodeItem
-syntax match viewsPropValueCode /.\+item.\+/ contained contains=viewsPropValueCodeItem
-syntax keyword viewsPropValueCodeItem item contained
+syntax match viewsPropValueCode /.*props.*/ contained
+syntax match viewsPropValueCode /.*item.*/ contained
+syntax match viewsPropValueCode /.\+\.data/ contained
 
 syntax match viewsComment /\v# .*$/
 
-highlight viewsBlock              ctermfg=Brown
+highlight viewsBlock              ctermfg=Red
 highlight viewsComment            ctermfg=Black ctermbg=DarkBlue
 highlight viewsPropValue          ctermfg=Green
 highlight viewsPropValueCode      ctermfg=Blue
-highlight viewsPropValueCodeItem  ctermfg=Cyan
+highlight viewsPropValueData      ctermfg=Blue
 highlight viewsPropMarginValue    ctermfg=Magenta
 highlight viewsPropPaddingValue   ctermfg=Yellow guifg=#80a0ff
+highlight viewsPropProxied        ctermfg=Red
 
 let b:current_syntax = "views"
