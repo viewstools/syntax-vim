@@ -1,4 +1,4 @@
-" v0.0.1
+" v0.0.2
 
 if exists("b:current_syntax")
   finish
@@ -8,31 +8,21 @@ set nospell
 
 syntax region viewsBlock start=/^\s*[A-Z]/ end=/\s\|$/
 
-syntax match viewsProp /^\s*[a-z].\+$/ contains=viewsPropValue,viewsPropMargin,viewsPropPadding
+syntax match viewsProp /\s*[a-z].\+$/ contains=viewsPropValue
+syntax region viewsPropValue start=/\s/ end=/$/ contained contains=viewsCode
+syntax match viewsCode /.*props.*/ contained
 
-syntax match viewsPropMargin /margin.\+/ contained contains=viewsPropMarginValue
-syntax match viewsPropMarginValue /[0-9]\+/ contained
+syntax keyword viewsCode when
+syntax match viewsOnWhen /^onWhen.\+$/
 
-syntax match viewsPropPadding /padding.\+/ contained contains=viewsPropPaddingValue
-syntax match viewsPropPaddingValue /[0-9]\+/ contained
+syntax match viewsComment /^\s*#.*$/
+syntax match viewsUserComment /^\s*##.*$/
 
-syntax region viewsPropValue start=/\s/ end=/$/ contained contains=viewsPropValueCode,viewsPropProxied
-
-syntax match viewsPropProxied /[A-Z][a-zA-Z0-9]\+$/ contained
-
-syntax match viewsPropValueCode /.*props.*/ contained
-syntax match viewsPropValueCode /.*item.*/ contained
-syntax match viewsPropValueCode /.\+\.data/ contained
-
-syntax match viewsComment /\v# .*$/
-
-highlight viewsBlock              ctermfg=Red
+highlight viewsBlock              ctermfg=Magenta
 highlight viewsComment            ctermfg=Black ctermbg=DarkBlue
+highlight viewsUserComment        ctermfg=Black ctermbg=DarkGray
 highlight viewsPropValue          ctermfg=Green
-highlight viewsPropValueCode      ctermfg=Blue
-highlight viewsPropValueData      ctermfg=Blue
-highlight viewsPropMarginValue    ctermfg=Magenta
-highlight viewsPropPaddingValue   ctermfg=Yellow guifg=#80a0ff
-highlight viewsPropProxied        ctermfg=Red
+highlight viewsCode               ctermfg=Blue
+highlight viewsOnWhen             ctermfg=Cyan
 
 let b:current_syntax = "views"
