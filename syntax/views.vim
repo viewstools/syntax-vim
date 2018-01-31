@@ -1,5 +1,3 @@
-" v0.0.2
-
 if exists("b:current_syntax")
   finish
 endif
@@ -12,7 +10,7 @@ syntax match viewsProp /\s*[a-z].\+$/ contains=viewsPropValue
 syntax region viewsPropValue start=/\s/ end=/$/ contained contains=viewsCode
 syntax match viewsCode /.*props.*/ contained
 
-syntax keyword viewsCode when
+syntax match viewsCode /^when.\+$/
 syntax match viewsOnWhen /^onWhen.\+$/
 
 syntax match viewsComment /^\s*#.*$/
